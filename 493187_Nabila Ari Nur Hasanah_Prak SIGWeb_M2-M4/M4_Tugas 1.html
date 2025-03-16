@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hitung Faktorial</title>
+    <script>
+        function hitungFaktorial() {
+            let angka = document.getElementById("inputAngka").value;
+            let hasil = 1;
+
+            if (angka < 0) {
+                hasil = "Faktorial tidak terdefinisi untuk angka negatif";
+            } else {
+                for (let i = 1; i <= angka; i++) {
+                    hasil *= i;
+                }
+            }
+
+            document.getElementById("hasil").innerText = "Angka faktorial dari " + angka + " adalah: " + hasil;
+        }
+    </script>
+</head>
+<body>
+    <h2>Hitung Faktorial dari Input</h2>
+    <h3>Masukkan sembarang angka:</h3>
+    <input type="number" id="inputAngka">
+    <button onclick="hitungFaktorial()">Hitung</button>
+    <p id="hasil"></p>
+	<div class="footer">@nabilaarinurhasanah</div>
+</body>
+</html>

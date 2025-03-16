@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hitung Deret Fibonacci</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f8f8f8;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 400px;
+        }
+        h2 {
+            font-size: 22px;
+        }
+        label {
+            font-size: 16px;
+            display: block;
+            margin-top: 10px;
+        }
+        input {
+            width: 100%;
+            padding: 5px;
+            font-size: 16px;
+            margin-top: 5px;
+        }
+        button {
+            margin-top: 10px;
+            padding: 5px 10px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        #output {
+            margin-top: 15px;
+            font-weight: bold;
+            color: blue;
+        }
+    </style>
+    <script>
+        function hitungFibonacci() {
+            let angka = document.getElementById("angka").value;
+            let output = document.getElementById("output");
+            angka = parseInt(angka);
+
+            if (isNaN(angka) || angka < 1) {
+                output.innerHTML = "Masukkan angka yang valid!";
+                return;
+            }
+
+            let fibonacci = [0, 1];
+            for (let i = 2; i < angka; i++) {
+                fibonacci[i] = fibonacci[i - 1] + fibonacci[i - 2];
+            }
+
+            output.innerHTML = "Deret Fibonacci hingga " + angka + " angka: " + fibonacci.slice(0, angka).join(", ");
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2>Hitung Deret Fibonacci</h2>
+        <p>Masukkan jumlah angka Fibonacci yang ingin ditampilkan:</p>
+        <label>Angka :</label>
+        <input type="number" id="angka">
+        
+        <button onclick="hitungFibonacci()">Submit</button>
+        
+        <p id="output"></p>
+		<div class="footer">@nabilaarinurhasanah</div>
+    </div>
+</body>
+</html>
+

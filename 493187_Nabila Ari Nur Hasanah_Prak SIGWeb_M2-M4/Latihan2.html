@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Kota Besar</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            border: 2px solid blue;
+        }
+        .header {
+            background-color: blue;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .content {
+            display: flex;
+        }
+        .sidebar {
+            width: 20%;
+            background-color: #f0f0f0;
+            padding: 10px;
+        }
+        .sidebar a {
+            display: block;
+            color: black;
+            text-decoration: none;
+            margin: 10px 0;
+            cursor: pointer;
+        }
+        .main {
+            width: 80%;
+            padding: 20px;
+        }
+        .main img {
+            width: 100%;
+            height: auto;
+        }
+        .footer {
+            background-color: blue;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            font-size: 14px;
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+        }
+    </style>
+    <script>
+        function showContent(city) {
+            var sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => section.classList.remove('active'));
+            document.getElementById(city).classList.add('active');
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">Kota Besar</div>
+        <div class="content">
+            <div class="sidebar">
+                <a onclick="showContent('Yogyakarta')">Yogyakarta</a>
+                <a onclick="showContent('Bandung')">Bandung</a>
+                <a onclick="showContent('Semarang')">Semarang</a>
+            </div>
+            <div class="main">
+                <div id="Yogyakarta" class="content-section active">
+                    <h2>Yogyakarta</h2>
+                    <p>Yogyakarta merupakan kota budaya dan pariwisata dengan destinasi wisata terkenal seperti Keraton Yogyakarta, Malioboro, Taman Sari, dan lain sebagainya.</p>
+                    <p>Tidak hanya disebut sebagai kota budaya, Yogyakarta dikenal dengan sebutan kota pelajar dengan banyak sekali perguruan tinggi di kota ini.</p>
+                    <img src="Yogyakarta.jpeg" alt="Yogyakarta">
+                </div>
+                <div id="Bandung" class="content-section">
+                    <h2>Bandung</h2>
+                    <p>Bandung adalah sebuah kota sekaligus ibukota provinsi di Jawa Barat. Dahulu, Kota Bandung dijuluki sebagai <em> Paris van Java</em> karena mirip seperti Kota Paris di Prancis</p>
+                    <p>Kota Bandung juga dikenal dengan sejumlah besar bangunan lama berarsitektur peninggalan Belanda seperti Geung Sate dan Gedung Pakuan</p>
+                    <img src="Bandung.jpeg" alt="Bandung">
+                </div>
+                <div id="Semarang" class="content-section">
+                    <h2>Semarang</h2>
+                    <p>Kota Semarang adalah salah satu kota yang terletak di pesisir utara Jawa dengan kondisi topografi yang unik berupa wilayah dataran rendah yang sempit dan wilayah perbukitan yang memanjang dari sisi barat hingga sisi timur Kota Semarang.</p>
+                    <p>Pariwisata menjadi salah satu pendukung perekonomian kota Semarang. Bangunan lama peninggalan masa penjajahan Belanda, terdapat di beberapa sudut kota.</p>
+                    <img src="Semarang.jpeg" alt="Semarang">
+                </div>
+            </div>
+        </div>
+        <div class="footer">Copyright @nabilaarinurhasanah</div>
+    </div>
+</body>
+</html>
