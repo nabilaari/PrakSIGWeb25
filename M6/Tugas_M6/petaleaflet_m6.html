@@ -1,0 +1,126 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+    <title>Tempat Wisata Kota Yogyakarta</title> 
+    <link rel="stylesheet" href="leaflet.css" />
+    <script src="leaflet.js"></script>  
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css" />
+    <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>  
+    <style> 
+        body {
+            padding: 0;
+            margin: 0;
+            height: 100%;
+            width: 100%;
+        }
+        .navbar {
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            background-color: #d0c8ea;
+        }
+        .center-title {
+            flex-grow: 1;
+            font-size: 30px;
+            margin: 0;
+            margin-left: 500px;
+            color: rgb(82, 74, 104);
+        }
+        #map {
+            position: absolute;
+            top: 80px;
+            bottom: 0;
+            width: 100%;
+        }
+    </style> 
+</head> 
+
+<body> 
+    <nav class="navbar navbar-expand-lg navbar-dark shadow-sm fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="https://icon-library.com/images/github-icon-white/github-icon-white-6.jpg" alt="Github" width="25" height="25" />
+            </a>
+            <a class="navbar-brand" href="https://github.com/nabilaari" style="font-size: 18px;">Nabila Ari</a>
+            <h1 class="navbar-brand center-title">Tempat Wisata di Kota Yogyakarta</h1>
+        </div>
+    </nav>
+
+    <div class="search-container">
+        <label for="start">Mulai:</label>
+        <input type="text" id="start" placeholder="Cari titik awal">
+        <br><br>
+        <label for="end">Tujuan:</label>
+        <input type="text" id="end" placeholder="Cari tujuan">
+        <br><br>
+        <button onclick="findRoute()">Cari Rute</button>
+    </div>
+
+    <div id="map"></div> 
+
+    <script> 
+        var map = L.map('map', { 
+            center: [-7.79558, 110.36949], 
+            zoom: 12 
+        });
+        L.Control.geocoder({
+            defaultMarkGeocode: true
+        }).addTo(map);
+        L.Routing.control({
+            waypoints: [
+                L.latLng(-7.79800, 110.35781),
+                L.latLng(-7.80106, 110.36778),
+            ],
+                lineOptions: {
+                    styles: [{color: 'blue', opacity: 1, weight: 3 }]
+                },
+                collapsible: true,
+                show: false,
+            }).addTo(map)
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { 
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map); 
+
+        var customIcon = L.icon({
+            iconUrl: 'images/logo.png', // URL ikon
+            iconSize: [40, 40], // Ukuran ikon (width, height)
+            iconAnchor: [20, 40], // Posisi anchor (tengah bawah ikon)
+            popupAnchor: [0, -35] // Posisi popup relatif terhadap ikon
+        });
+
+        L.marker([-7.80106, 110.36778], {icon: customIcon})
+            .bindPopup('<h3>Taman Pintar</h3> <p>Tempat wisata edukasi untuk anak-anak dengan berbagai wahana interaktif.</p> <img src ="https://i.pinimg.com/736x/8e/81/35/8e8135a3277c62647d80c0eeec7a1aa2.jpg" style="width:150px">')
+            .addTo(map); 
+        
+        L.marker([-7.79800, 110.35781])
+            .bindPopup('<b>Rumah Bila</b>')
+            .addTo(map);
+
+        L.marker([-7.80767, 110.36384], {icon: customIcon})
+            .bindPopup('<h3>Keraton Yogyakarta</h3> <p>Istana resmi Kesultanan Yogyakarta dengan arsitektur khas dan sejarah yang kaya.</p> <img src ="https://i.pinimg.com/736x/f3/82/6e/f3826e26e63d19a4b3c133ba4188ca79.jpg" style="width:150px">')
+            .addTo(map); 
+
+        L.marker([-7.81013, 110.35900], {icon: customIcon})
+            .bindPopup('<h3>Taman Sari</h3> <p>Bekas taman kerajaan dengan kolam-kolam pemandian dan terowongan bawah tanah.</p> <img src ="https://i.pinimg.com/736x/1a/7d/ee/1a7deeb67a07e4f36523c5a34dc83730.jpg" style="width:150px">')
+            .addTo(map); 
+        
+        L.marker([-7.79890, 110.36678], {icon: customIcon})
+            .bindPopup('<h3>Pasar Beringharjo</h3> <p>Pasar tradisional tertua di Jogja yang menjual batik, jajanan, dan barang antik.</p> <img src ="https://i.pinimg.com/736x/1a/ef/5f/1aef5f5b8942cb64720027efb1ca837f.jpg" style="width:150px">')
+            .addTo(map);
+        
+        L.marker([-7.79890, 110.36678], {icon: customIcon})
+            .bindPopup('<h3>Museum Sonobudoyo</h3> <p>Museum dengan koleksi budaya Jawa, mulai dari keris hingga wayang.</p> <img src ="https://i.pinimg.com/736x/c2/27/4d/c2274d47a50597c4168e64881e3cf38a.jpg" style="width:150px">')
+            .addTo(map);
+        
+        L.marker([-7.80027, 110.36627], {icon: customIcon})
+            .bindPopup('<h3>Benteng Vredeburg</h3> <p>Benteng peninggalan Belanda yang kini menjadi museum sejarah.</p> <img src ="https://i.pinimg.com/736x/b5/77/2f/b5772fe096706c1e2dfed8a251b149ce.jpg" style="width:150px">')
+            .addTo(map);
+        
+    </script> 
+</body> 
+</html>
