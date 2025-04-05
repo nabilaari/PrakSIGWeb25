@@ -166,8 +166,8 @@
         L.control.layers(baseMaps, overlayMaps).addTo(map);
 
         // GeoJSON (dari file yogja.js)
-        if (typeof jogjageojson !== "undefined") {
-            L.geoJSON(jogjageojson, {
+        if (typeof yogjageojson !== "undefined") {
+            L.geoJSON(yogjageojson, {
                 style: function (feature) {
                     switch (feature.properties.KABUPATEN) {
                         case 'Gunung Kidul': return { color: "yellow" };
@@ -181,11 +181,6 @@
                     layer.bindPopup('Kecamatan: <strong>' + feature.properties.KECAMATAN + '</strong>');
                 }
             }).addTo(map);
-        }
-
-        // Fungsi Cari Rute (dummy)
-        function findRoute() {
-            alert("Fitur pencarian rute bisa dikembangkan lebih lanjut menggunakan Geocoding API atau input koordinat.");
         }
     </script>
 </body>
