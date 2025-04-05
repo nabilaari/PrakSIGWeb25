@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Tempat Wisata Kota Yogyakarta</title>
+    <link rel="stylesheet" href="leaflet.css" />
+    <script src="leaflet.js"></script>
+    <script src="yogja.js"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css" />
+    <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+
+    <style> 
+        body {
+            padding: 0;
+            margin: 0;
+            height: 100%;
+            width: 100%;
+        }
+        .navbar {
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            background-color: #d0c8ea;
+        }
+        .center-title {
+            flex-grow: 1;
+            font-size: 30px;
+            margin: 0;
+            margin-left: 400px;
+            color: rgb(82, 74, 104);
+        }
+        #map {
+            position: absolute;
+            top: 80px;
+            bottom: 0;
+            width: 100%;
+        }
+    </style> 
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top shadow-sm">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="https://icon-library.com/images/github-icon-white/github-icon-white-6.jpg" alt="Github" width="25" height="25" />
+            </a>
+            <a class="navbar-brand" href="https://github.com/nabilaari" style="font-size: 18px;">Nabila Ari</a>
+            <h1 class="navbar-brand center-title">Tempat Wisata di Kota Yogyakarta</h1>
+        </div>
+    </nav>
+
+
+    <div id="map"></div>
+
+    <script>
+        
+        var map = L.map('map', {
+            center: [-7.79558, 110.36949],
+            zoom: 13,
+            zoomControl: false,
+            attributionControl: false // Nonaktifkan attribution default
+        });
+
+        // Tambahkan attribution control di kanan bawah
+        L.control.attribution({ position: 'bottomright' }).addTo(map);
+
+        // Tambahkan zoom control di kiri bawah
+        L.control.zoom({ position: 'bottomleft' }).addTo(map);
+
+        var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        var esri = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+            attribution: 'Tiles &copy; Esri'
+        });
+
+        var carto = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}{r}.png', {
+            attribution: '&copy; OpenStreetMap & CartoDB',
+            subdomains: 'abcd',
+            maxZoom: 19
+        });
+
+        var baseMaps = {
+            "OpenStreetMap": osm,
+            "Citra Satelit": esri,
+            "Peta Carto": carto
+        };
+
+        // Tambah kontrol pencarian
+        L.Control.geocoder().addTo(map);
+
+        // Routing default
+        L.Routing.control({
+            waypoints: [
+                L.latLng(-7.79800, 110.35781),
+                L.latLng(-7.80106, 110.36778),
+            ],
+            lineOptions: {
+                styles: [{ color: 'blue', opacity: 1, weight: 3 }]
+            },
+            collapsible: true,
+            show: false,
+        }).addTo(map);
+
+        // Icon Custom
+        var customIcon = L.icon({
+            iconUrl: 'images/logo.png',
+            iconSize: [30, 30],
+            iconAnchor: [15, 30],
+            popupAnchor: [0, -35]
+        });
+
+        var Taman_Pintar = L.marker([-7.80106, 110.36778], { icon: customIcon })
+            .bindPopup('<h3>Taman Pintar</h3><p>Tempat wisata edukasi untuk anak-anak dengan berbagai wahana interaktif.</p><img src="https://i.pinimg.com/736x/8e/81/35/8e8135a3277c62647d80c0eeec7a1aa2.jpg" style="width:150px">')
+            .addTo(map);
+
+        var Rumah_Bila = L.marker([-7.79800, 110.35781])
+            .bindPopup('<b>Rumah Bila</b>')
+            .addTo(map);
+
+        var Keraton = L.marker([-7.80767, 110.36384], { icon: customIcon })
+            .bindPopup('<h3>Keraton Yogyakarta</h3><p>Istana resmi Kesultanan Yogyakarta dengan arsitektur khas dan sejarah yang kaya.</p><img src="https://i.pinimg.com/736x/f3/82/6e/f3826e26e63d19a4b3c133ba4188ca79.jpg" style="width:150px">')
+            .addTo(map);
+
+        var Taman_Sari = L.marker([-7.81013, 110.35900], { icon: customIcon })
+            .bindPopup('<h3>Taman Sari</h3><p>Bekas taman kerajaan dengan kolam-kolam pemandian dan terowongan bawah tanah.</p><img src="https://i.pinimg.com/736x/1a/7d/ee/1a7deeb67a07e4f36523c5a34dc83730.jpg" style="width:150px">')
+            .addTo(map);
+
+        var Pasar_Beringharjo = L.marker([-7.79890, 110.36678], { icon: customIcon })
+            .bindPopup('<h3>Pasar Beringharjo</h3><p>Pasar tradisional tertua di Jogja yang menjual batik, jajanan, dan barang antik.</p><img src="https://i.pinimg.com/736x/1a/ef/5f/1aef5f5b8942cb64720027efb1ca837f.jpg" style="width:150px">')
+            .addTo(map);
+
+        var Museum_Sonobudoyo = L.marker([-7.79890, 110.36678], { icon: customIcon })
+            .bindPopup('<h3>Museum Sonobudoyo</h3><p>Museum dengan koleksi budaya Jawa, mulai dari keris hingga wayang.</p><img src="https://i.pinimg.com/736x/c2/27/4d/c2274d47a50597c4168e64881e3cf38a.jpg" style="width:150px">')
+            .addTo(map);
+
+        var Benteng_Vredeburg = L.marker([-7.80027, 110.36627], { icon: customIcon })
+            .bindPopup('<h3>Benteng Vredeburg</h3><p>Benteng peninggalan Belanda yang kini menjadi museum sejarah.</p><img src="https://i.pinimg.com/736x/b5/77/2f/b5772fe096706c1e2dfed8a251b149ce.jpg" style="width:150px">')
+            .addTo(map);
+
+        var wisata = L.layerGroup([
+            Taman_Pintar,
+            Rumah_Bila,
+            Keraton,
+            Taman_Sari,
+            Pasar_Beringharjo,
+            Museum_Sonobudoyo,
+            Benteng_Vredeburg
+        ]);
+
+        var overlayMaps = {
+            "Tempat Wisata": wisata
+        };
+
+        L.control.layers(baseMaps, overlayMaps).addTo(map);
+
+        // GeoJSON (dari file yogja.js)
+        if (typeof jogjageojson !== "undefined") {
+            L.geoJSON(jogjageojson, {
+                style: function (feature) {
+                    switch (feature.properties.KABUPATEN) {
+                        case 'Gunung Kidul': return { color: "yellow" };
+                        case 'Sleman': return { color: "red" };
+                        case 'Bantul': return { color: "blue" };
+                        case 'Yogyakarta': return { color: "green" };
+                        case 'Kulon Progo': return { color: "magenta" };
+                    }
+                },
+                onEachFeature: function (feature, layer) {
+                    layer.bindPopup('Kecamatan: <strong>' + feature.properties.KECAMATAN + '</strong>');
+                }
+            }).addTo(map);
+        }
+
+        // Fungsi Cari Rute (dummy)
+        function findRoute() {
+            alert("Fitur pencarian rute bisa dikembangkan lebih lanjut menggunakan Geocoding API atau input koordinat.");
+        }
+    </script>
+</body>
+
+</html>
