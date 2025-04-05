@@ -165,25 +165,25 @@
         L.control.layers(baseMaps, overlayMaps).addTo(map);
 
         // GeoJSON (dari file yogya.js)
-        L.geoJSON(yogyageojson,{ 
-            style: function(feature) {
-                switch (feature.properties.KABUPATEN) {
-                    case 'Gunung Kidul': return {color: "#yellow"};
-                    case 'Sleman': return {color: "red"};
-                    case 'Bantul': return {color: "blue"};
-                    case 'Yogyakarta': return {color: "green"};
-                    case 'Kulon Progo': return {color: "magenta"};
-                }
-            },
-                onEachFeature: function (feature, layer) {
-                    layer.bindPopup(
-                        'Kecamatan adalah ' +
-                        '<strong>' + 
-                        feature.properties.KECAMATAN +
-                        '</strong>'
-                        );
+    L.geoJSON(yogyageojson,{ 
+        style: function(feature) {
+            switch (feature.properties.KABUPATEN) {
+                case 'Gunung Kidul': return {color: "#yellow"};
+                case 'Sleman': return {color: "red"};
+                case 'Bantul': return {color: "blue"};
+                case 'Yogyakarta': return {color: "green"};
+                case 'Kulon Progo': return {color: "magenta"};
             }
-        }).addTo(map);
+        },
+            onEachFeature: function (feature, layer) {
+                layer.bindPopup(
+                    'Kecamatan adalah ' +
+                    '<strong>' + 
+                    feature.properties.KECAMATAN +
+                    '</strong>'
+                    );
+        }
+    }).addTo(map);
     </script>
 </body>
 
