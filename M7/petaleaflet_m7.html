@@ -49,6 +49,8 @@
 </head>
 
 <body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+    crossorigin="anonymous"></script>
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top shadow-sm">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
@@ -68,19 +70,17 @@
             center: [-7.79558, 110.36949],
             zoom: 13,
             zoomControl: false,
-            attributionControl: false // Nonaktifkan attribution default
+            attributionControl: false
         });
 
-        // Tambahkan attribution control di kanan bawah
         L.control.attribution({ position: 'bottomright' }).addTo(map);
 
-        // Tambahkan zoom control di kiri bawah
         L.control.zoom({ position: 'bottomleft' }).addTo(map);
 
-        var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; OpenStreetMap contributors'
+        var osm = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png',{
+            maxZoom: 25,
+            attribution:'&copy; <a href="http://osm.org/copyright">OpenStreetMap</a>contributors'
         }).addTo(map);
-
         var esri = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
             attribution: 'Tiles &copy; Esri'
         });
@@ -97,10 +97,10 @@
             "Peta Carto": carto
         };
 
-        // Tambah kontrol pencarian
+      
         L.Control.geocoder().addTo(map);
 
-        // Routing default
+        
         L.Routing.control({
             waypoints: [
                 L.latLng(-7.79800, 110.35781),
@@ -113,7 +113,6 @@
             show: false,
         }).addTo(map);
 
-        // Icon Custom
         var customIcon = L.icon({
             iconUrl: 'images/logo.png',
             iconSize: [30, 30],
@@ -165,23 +164,26 @@
 
         L.control.layers(baseMaps, overlayMaps).addTo(map);
 
-        // GeoJSON (dari file yogja.js)
-        if (typeof yogjageojson !== "undefined") {
-            L.geoJSON(yogjageojson, {
-                style: function (feature) {
-                    switch (feature.properties.KABUPATEN) {
-                        case 'Gunung Kidul': return { color: "yellow" };
-                        case 'Sleman': return { color: "red" };
-                        case 'Bantul': return { color: "blue" };
-                        case 'Yogyakarta': return { color: "green" };
-                        case 'Kulon Progo': return { color: "magenta" };
-                    }
-                },
-                onEachFeature: function (feature, layer) {
-                    layer.bindPopup('Kecamatan: <strong>' + feature.properties.KECAMATAN + '</strong>');
+        // GeoJSON (dari file yogya.js)
+        L.geoJSON(yogyageojson,{ 
+            style: function(feature) {
+                switch (feature.properties.KABUPATEN) {
+                    case 'Gunung Kidul': return {color: "#yellow"};
+                    case 'Sleman': return {color: "red"};
+                    case 'Bantul': return {color: "blue"};
+                    case 'Yogyakarta': return {color: "green"};
+                    case 'Kulon Progo': return {color: "magenta"};
                 }
-            }).addTo(map);
-        }
+            },
+                onEachFeature: function (feature, layer) {
+                    layer.bindPopup(
+                        'Kecamatan adalah ' +
+                        '<strong>' + 
+                        feature.properties.KECAMATAN +
+                        '</strong>'
+                        );
+            }
+        }).addTo(map);
     </script>
 </body>
 
